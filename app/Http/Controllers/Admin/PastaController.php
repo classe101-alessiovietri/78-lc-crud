@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+// Models
+use App\Models\Pasta;
+
 class PastaController extends Controller
 {
     /**
@@ -12,7 +15,9 @@ class PastaController extends Controller
      */
     public function index()
     {
-        //
+        $pastas = Pasta::all();
+
+        return view('admin.pastas.index', compact('pastas'));
     }
 
     /**
@@ -20,7 +25,7 @@ class PastaController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.pastas.create');
     }
 
     /**
@@ -28,7 +33,20 @@ class PastaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $formData = $request->all();
+
+        $pasta = new Pasta();
+        $pasta->src = $formData['src'];
+        $pasta->title = $formData['title'];
+        $pasta->type = $formData['type'];
+        $pasta->cooking_time = $formData['cooking_time'];
+        $pasta->weight = $formData['weight'];
+        $pasta->description = $formData['description'];
+        $pasta->save();
+
+        return redirect()->route('pastas.index');
+        // oppure
+        // return redirect()->route('pastas.show', ['pasta' => $pasta->id]);
     }
 
     /**
@@ -36,7 +54,9 @@ class PastaController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $pasta = Pasta::findOrFail($id);
+
+        return view('admin.pastas.show', compact('pasta'));
     }
 
     /**
