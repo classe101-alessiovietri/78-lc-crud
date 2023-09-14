@@ -23,3 +23,4 @@
 7. Eseguo il seeder con il comando **php artisan db:seed --class=NOMEENTITASeeder**
 
 ## Passi workflow di Git
+
