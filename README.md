@@ -21,6 +21,9 @@
 5. Creo il seeder associato alla mia entità tramite il comando **php artisan make:seeder NOMEENTITASeeder** (es. PastaSeeder)
 6. Riempio il seeder con le operazioni necessarie a creare i salvare i miei dati iniziali (quelli reali)/di test (quelli fake)
 7. Eseguo il seeder con il comando **php artisan db:seed --class=NOMEENTITASeeder**
+8. Creo un resource controller tramite il comando **php artisan make:controller NOMEENTITAController --resource** (es. PastaController)
+9. Associo le funzioni (già definite) del nuovo controller alle rispettive rotte aggiungendo in web.php **Route::resource('NOMETABELLA', NOMEENTITAController::class)**
+10. Riempio i corpi delle funzioni secondo necessità
 
 ## Passi workflow di Git
 
