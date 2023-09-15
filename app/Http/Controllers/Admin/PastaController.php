@@ -35,27 +35,34 @@ class PastaController extends Controller
     {
         $formData = $request->all();
 
-        $pasta = new Pasta();
-        $pasta->src = $formData['src'];
-        $pasta->title = $formData['title'];
-        $pasta->type = $formData['type'];
-        $pasta->cooking_time = $formData['cooking_time'];
-        $pasta->weight = $formData['weight'];
-        $pasta->description = $formData['description'];
-        $pasta->save();
+        $pasta = Pasta::create($formData);  // Mass assignment
 
-        return redirect()->route('pastas.index');
+        // $pasta = new Pasta();            // Mass
+        // $pasta->fill($formData);         // assignment
+
+        // OPPURE
+
+        // $pasta = new Pasta();
+        // $pasta->src = $formData['src'];
+        // $pasta->title = $formData['title'];
+        // $pasta->type = $formData['type'];
+        // $pasta->cooking_time = $formData['cooking_time'];
+        // $pasta->weight = $formData['weight'];
+        // $pasta->description = $formData['description'];
+        // $pasta->save();
+
+        // return redirect()->route('pastas.index');
         // oppure
-        // return redirect()->route('pastas.show', ['pasta' => $pasta->id]);
+        return redirect()->route('pastas.show', ['pasta' => $pasta->id]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(
+        Pasta $pasta        // Dependency injection
+    )
     {
-        $pasta = Pasta::findOrFail($id);
-
         return view('admin.pastas.show', compact('pasta'));
     }
 
@@ -64,15 +71,36 @@ class PastaController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $pasta = Pasta::findOrFail($id);
+
+        return view('admin.pastas.edit', compact('pasta'));
     }
 
     /**
      * Update the specified resource in storage.
      */
+    // public function update(Request $request, Pasta $pasta)
+    // {
     public function update(Request $request, string $id)
     {
-        //
+        $pasta = Pasta::findOrFail($id);
+        // dd($request->all());
+
+        $formData = $request->all();
+
+        // $pasta->update($formData);      // Mass assignment
+
+        // OPPURE
+
+        $pasta->src = $formData['src'];
+        $pasta->title = $formData['title'];
+        $pasta->type = $formData['type'];
+        $pasta->cooking_time = $formData['cooking_time'];
+        $pasta->weight = $formData['weight'];
+        $pasta->description = $formData['description'];
+        $pasta->save();
+
+        return redirect()->route('pastas.show', ['pasta' => $pasta->id]);
     }
 
     /**
@@ -80,6 +108,10 @@ class PastaController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $pasta = Pasta::findOrFail($id);
+
+        $pasta->delete();
+
+        return redirect()->route('pastas.index');
     }
 }

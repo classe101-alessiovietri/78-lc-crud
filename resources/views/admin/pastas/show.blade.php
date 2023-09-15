@@ -26,7 +26,8 @@
                             {{ $pasta->weight }}g
                         </div>
                         <div>
-                            {{ $pasta->description }}
+                            {{-- {{ $pasta->description }} --}}
+                            {!! $pasta->description !!}
                         </div>
                     </p>
                 </div>

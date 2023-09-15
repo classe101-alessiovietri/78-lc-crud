@@ -8,4 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Pasta extends Model
 {
     use HasFactory;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<string>
+     */
+    protected $fillable = [
+        'src',
+        'title',
+        'type',
+        'cooking_time',
+        'weight',
+        'description',
+    ];
 }
